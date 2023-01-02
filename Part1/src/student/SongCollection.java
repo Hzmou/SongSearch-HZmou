@@ -1,4 +1,3 @@
-
 package student;
 
 import java.util.stream.Stream;
@@ -6,14 +5,13 @@ import java.util.*;
 import java.io.*;
 
 /**
- * 
+ *
  * @author boothe
  */
 public class SongCollection {
 
     private Song[] songs;
 
-    
     public SongCollection(String filename) {
 
         // use a try catch block
@@ -23,7 +21,75 @@ public class SongCollection {
         // must be retained.
         // sort the songs array using Arrays.sort (see the Java API)
         // this will use the compareTo() in Song to do the job.
+        ArrayList<Song> list = new ArrayList<>();
+
+        Scanner fileReader = null;
         
+         String lineTkn;
+        StringBuilder lyrics = new StringBuilder();
+
+        String titleTkn = null;
+        String artistTkn = null;
+        
+
+        File file = new File(filename);
+        try {
+            fileReader = new Scanner(file);
+
+        } catch (FileNotFoundException err) {
+            System.out.println("File not Found.");
+            System.exit(1);
+
+        }
+
+       
+
+        while (fileReader.hasNext()) {
+
+            lineTkn = fileReader.nextLine();
+
+            if (lineTkn.startsWith("ARTIST=")) {
+
+                artistTkn = lineTkn.substring(8, lineTkn.length() - 1);
+
+            }
+
+            if (lineTkn.startsWith("TITLE=")) {
+
+                titleTkn = lineTkn.substring(7, lineTkn.length() - 1);
+
+            }
+
+            if (lineTkn.startsWith("LYRICS=")) {
+
+                lineTkn = lineTkn.substring(8, lineTkn.length() - 1);
+                lyrics.append(lineTkn).append("\n");
+
+            }
+
+            while (lineTkn.indexOf('"') == -1) {
+
+                lineTkn = fileReader.nextLine();
+                lyrics.append(lineTkn).append("\n");
+
+            }
+
+            if (lineTkn.startsWith("\"")) {
+
+                list.add(new Song(artistTkn, titleTkn,
+                        lyrics.toString()));
+                lyrics.setLength(0);
+
+            }
+
+        }
+
+        
+        fileReader.close();
+        songs = new Song[list.size()];
+        list.toArray(songs);
+        Arrays.sort(songs);
+
     }
 
     /**

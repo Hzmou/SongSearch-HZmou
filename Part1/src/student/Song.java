@@ -1,31 +1,69 @@
-
 package student;
 
 import java.util.*;
 
-/**
- * Song class to hold strings for a song's artist, title, and lyrics Do not add
- * any methods for part 1, just implement the ones that are here. Authors: Aiden
- * Bradley - Zach Kelly
- *
- * @author abradley - zkelly
- * @author boothe
- */
-public class Song {
+public class Song implements Comparable{
 
     // private fields
     private String artist;
     private String title;
     private String lyrics;
 
-    public Song(String artist, String title, String lyrics){
-        
-        this.artist= artist;
-        
-        
+    public Song(String artist, String title, String lyrics) {
+
+        this.artist = artist;
+        this.title = title;
+        this.lyrics = lyrics;
+
     }
 
+    public String getArtist() {
+        return artist;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public String toString() {
+
+        StringBuilder str = new StringBuilder();
+
+        str.append(String.format("%s,\"%s\"", this.artist, this.title));
+        return str.toString();
+    }
+     
     
+    
+    /*
+      * This is a compareTo class that is used 
+    */
+    public int compareTo(Object that) {
+
+        int comp = 0;
+
+        if (that == null) {
+            comp = 1;
+        } else if (this == that) {
+            comp = 0;
+
+        } else {
+            comp = this.artist.compareToIgnoreCase(((Song) that).artist);
+
+            if (comp == 0) {
+                comp = this.title.compareToIgnoreCase(((Song) that).title);
+            }
+
+        }
+
+        return comp;
+
+    }
+
     /**
      * testing method to unit test this class
      *
