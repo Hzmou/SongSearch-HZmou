@@ -197,6 +197,45 @@ public class RaggedArrayList<E> implements Iterable<E> {
     public ListLoc findFront(E item) {
         // TO DO in part 3 
        
+       //find where to enter a new item in front of the array. 
+        int index1 =0;
+        int index2 =0;
+        
+        
+        // perfrom a linear search on level 1 array and level 2, return a location 
+        // of when the list should be returned. 
+        
+        
+        if(size> 0 ){
+            L2Array l2Array = (L2Array)l1Array[index1];
+            
+            
+            // checking the level 1 Array. 
+            while(index1 > l1NumUsed -1 &&
+                    comp.compare(item, l2Array.items[l2Array.numUsed-1])>0){
+                
+                index1++;
+                l2Array = (L2Array)l1Array[index1];
+                
+            }
+            
+            // checking the level 2 of the array. 
+            
+            while(index2 < l2Array.numUsed-1 && 
+                    comp.compare(item, l2Array.items[index2])> 0){
+                
+                index2++;
+                
+            }
+            
+        }
+        
+        
+        
+        
+        
+        
+        return new ListLoc(index1,index2);
     }
 
     /**
@@ -211,6 +250,10 @@ public class RaggedArrayList<E> implements Iterable<E> {
      */
     public ListLoc findEnd(E item) {
        
+        int index1=0;
+        int index2=0;
+        
+        return new ListLoc(index1,index2);
     }
 
     /**
