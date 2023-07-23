@@ -43,30 +43,38 @@ public class SongCollection {
         }
 
        
-
+ 
         while (fileReader.hasNext()) {
 
             lineTkn = fileReader.nextLine();
-
+            
+            
+            // Parsing the Artist
             if (lineTkn.startsWith("ARTIST=")) {
 
                 artistTkn = lineTkn.substring(8, lineTkn.length() - 1);
 
             }
-
+            
+            
+            // Parsing the Title
             if (lineTkn.startsWith("TITLE=")) {
 
                 titleTkn = lineTkn.substring(7, lineTkn.length() - 1);
 
             }
-
+             
+            
+            // parsing the Lyrics
             if (lineTkn.startsWith("LYRICS=")) {
 
                 lineTkn = lineTkn.substring(8, lineTkn.length() - 1);
                 lyrics.append(lineTkn).append("\n");
 
             }
-
+             
+            // while we have not reached the end of the Song lyrics,
+            //keep parsing
             while (lineTkn.indexOf('"') == -1) {
 
                 lineTkn = fileReader.nextLine();
