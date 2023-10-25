@@ -115,7 +115,7 @@ public class SongCollection {
 
         SongCollection sc = new SongCollection(args[0]);
         Song[] list = sc.getAllSongs();
-
+      
         // todo: show song count and first 10 songs (name & title only, 1 per line)
         System.out.printf("Total songs =  %d, first songs: \n", list.length);
         // print the list or the first 10 which ever is less        
